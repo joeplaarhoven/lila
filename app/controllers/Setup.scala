@@ -41,7 +41,7 @@ final class Setup(
     ("slow", 300, 1.day)
   )
 
-  private[controllers] val BotAiRateLimit = RateLimit[UserId](50, 1.day, key = "setup.post.bot.ai")
+  private[controllers] val BotAiRateLimit = RateLimit[UserId](50, 1.second, key = "setup.post.bot.ai")
 
   def ai = OpenBody:
     BotAiRateLimit(ctx.userId | UserId(""), rateLimited, cost = ctx.me.exists(_.isBot).so(1)):
